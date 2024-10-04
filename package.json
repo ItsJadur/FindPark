@@ -1,0 +1,13 @@
+{
+  "name": "findpark",
+  "version": "1.0.0",
+  "description": "FindPark project for CS-545",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "FindPark",
+  "license": "MIT"
+}
