@@ -9,5 +9,9 @@
     "start": "node app.js"
   },
   "author": "FindPark",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1",
+    "express-handlebars": "^8.0.1"
+  }
 }
