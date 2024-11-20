@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.21.1",
-    "express-handlebars": "^8.0.1"
+    "express-handlebars": "^8.0.1",
+    "mapbox-gl": "^3.8.0"
   }
 }

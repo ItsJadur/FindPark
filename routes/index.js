@@ -1,4 +1,4 @@
-import {router as parkRoutes} from "./park.js";
+import { router as parkRoutes } from "./park.js";
 
 const constructorMethod = (app) => {
   app.use("/", parkRoutes);
