@@ -1,0 +1,29 @@
+<h1> Welcome </h1>
+<h2> This is where you can find reports that people have had with parks. </h2>
+
+<h3>Submit a Report</h3>
+<form action="/submit-report" method="POST">
+  <label for="parkName">Park Name:</label>
+  <input type="text" id="parkName" name="parkName" required>
+  
+  <label for="reportContent">Report:</label>
+  <textarea id="reportContent" name="reportContent" rows="4" cols="50" required></textarea>
+  
+  <button type="submit">Submit</button>
+</form>
+
+
+<h3>Reports</h3>
+<ul>
+  {{#if reports}}
+    {{#each reports}}
+      <li>
+        <strong>{{parkName}}</strong>: {{reportContent}} <em>({{date}})</em>
+      </li>
+    {{/each}}
+  {{else}}
+    <li>No reports available</li>
+  {{/if}}
+</ul>
+
+<a href="/" class="btn btn-primary">Home</a>
