@@ -1,4 +1,4 @@
 export const mongoConfig = {
-    serverUrl: 'mongodb://localhost:27017/',
-    database: 'FindPark Reports'
-  };
+	serverUrl: "mongodb://localhost:27017/",
+	database: "FindPark_Reports",
+};

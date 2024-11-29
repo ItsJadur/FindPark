@@ -14,4 +14,4 @@ const getCollectionFn = (collection) => {
 };
 
 
-export const products = getCollectionFn('reports');
+export const reports = getCollectionFn('reports');
