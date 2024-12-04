@@ -1,0 +1,24 @@
+<h1>{{title}}</h1>
+
+<h3>Search for Parks by State</h3>
+<form action="/nat" method="GET">
+  <label for="state">Enter State Code (e.g., NJ, CA):</label>
+  <input type="text" id="state" name="state" required>
+  <button type="submit">Search</button>
+</form>
+
+<ul>
+  {{#if parks}}
+    {{#each parks}}
+      <li>
+        <h2>{{fullName}}</h2>
+        <p>{{description}}</p>
+        <a href="{{url}}" target="_blank">Learn More</a>
+      </li>
+    {{/each}}
+  {{else}}
+    <li>No parks found for this state.</li>
+  {{/if}}
+</ul>
+
+<a href="/" class="btn btn-primary">Home</a>
