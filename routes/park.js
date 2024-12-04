@@ -10,28 +10,15 @@ router.route("/").get(async (req, res) => {
 });
 
 router.route("/reports").get(async (req, res) => {
-    try {
-        const { searchPark, sortBy, filterByDate } = req.query;
-
-        // Build query parameters with defaults
-        const queryParams = {
-            searchPark: searchPark || '',
-            sortBy: sortBy || 'date_desc',
-            filterByDate: filterByDate || ''
-        };
-
-        const reports = await getAllReports(queryParams);
-        res.render("reports", {
-            title: "Reports",
-            reports,
-            searchPark: queryParams.searchPark,
-            sortBy: queryParams.sortBy,
-            filterByDate: queryParams.filterByDate
-        });
-    } catch (e) {
-        console.error("Error fetching reports:", e);
-        res.status(500).send("Internal Server Error");
-    }
+	try {
+		const reports = await getAllReports();
+		res.render("reports", {
+			title: "Reports",
+			reports,
+		});
+	} catch (e) {
+		res.status(500).send(e);
+	}
 });
 
 router.route("/submit-report").post(async (req, res) => {
