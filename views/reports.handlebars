@@ -18,14 +18,33 @@
 	<button type="submit">Submit</button>
 </form>
 
+<h3>Search and Filter Reports</h3>
+<form action="/reports" method="GET">
+	<label for="searchPark">Search by Park Name:</label>
+	<input type="text" id="searchPark" name="searchPark" value="{{searchPark}}" />
+
+	<label for="sortBy">Sort By:</label>
+	<select id="sortBy" name="sortBy">
+		<option value="date_desc" {{#if (eq sortBy "date_desc")}}selected{{/if}}>Date (Newest First)</option>
+		<option value="date_asc" {{#if (eq sortBy "date_asc")}}selected{{/if}}>Date (Oldest First)</option>
+		<option value="parkName_asc" {{#if (eq sortBy "parkName_asc")}}selected{{/if}}>Park Name (A-Z)</option>
+		<option value="parkName_desc" {{#if (eq sortBy "parkName_desc")}}selected{{/if}}>Park Name (Z-A)</option>
+	</select>
+
+	<label for="filterByDate">Filter By Date:</label>
+	<input type="date" id="filterByDate" name="filterByDate" value="{{filterByDate}}" />
+
+	<button type="submit">Apply</button>
+</form>
+
 <h3>Reports</h3>
 <ul>
-	{{#if reports}}
+	{{#if reports.length}}
 		{{#each reports}}
 			<li>
 				<strong>{{parkName}}</strong>:
 				{{reportContent}}
-				<em>({{date}})</em>
+				<em>({{formatDate date}})</em>
 			</li>
 		{{/each}}
 	{{else}}
