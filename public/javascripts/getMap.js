@@ -1,6 +1,36 @@
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYW5kcmVzZmVybjQxMyIsImEiOiJjbTNxY2E5ajMwcHdpMm5wc3dmZWUxaHVrIn0.RFjVRp1Np_R0dEgJ7pZHWg";
 
+async function getParks(center) {
+  let locations = [];
+  const url = `https://api.mapbox.com/search/searchbox/v1/suggest?q=park&language=en&poi_category=park&proximity=${center.lng},${center.lng}&session_token=0e3812df-4e80-4f71-8939-79bad3406d66&access_token=${mapboxgl.accessToken}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // Add new markers
+    await data.suggestions.forEach(async (suggestion) => {
+      const url2 = `https://api.mapbox.com/search/searchbox/v1/retrieve/${suggestion.mapbox_id}?session_token=[GENERATED-UUID]&access_token=${mapboxgl.accessToken}`;
+      const reponse2 = await fetch(url2);
+      const data2 = await reponse2.json();
+
+      if (data2.features.length !== 0) {
+        data2.features.forEach((feature) => {
+          locations.push(feature);
+        });
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching parks:", error);
+  }
+  return locations;
+}
+
+function getBounds(features) {
+  const bounds = new mapboxgl.LngLatBounds();
+  features.forEach((feature) => bounds.extend(feature.geometry.coordinates));
+  return bounds;
+}
 const map = new mapboxgl.Map({
   container: "map", // container ID
   style: "mapbox://styles/mapbox/streets-v12", // style URL
@@ -18,27 +48,11 @@ map.addControl(
     showUserHeading: true,
   })
 );
-const locations = [
-  { coordinates: [-74.0327618, 40.7485811], name: "Columbus Park" },
-  { coordinates: [-74.0317791, 40.7417982], name: "Church Square Park" },
-  { coordinates: [-74.0300475, 40.7414881], name: "Stevens Park" },
-  { coordinates: [-74.0273996, 40.7485778], name: "Elysian Park" },
-  { coordinates: [-74.0351103, 40.7525261], name: "Northwest Resiliency Park"},
-  { coordinates: [-74.0282121, 40.7546086], name: "Harborside Park" },
-  { coordinates: [-74.0255863, 40.7515979], name: "Shipyard Park" },
-  { coordinates: [-74.0254779, 40.7486785], name: "Maxwell Place Park" },
-  { coordinates: [-74.0273669, 40.7413064], name: "Sinatra Park" },
-  { coordinates: [-74.0276524, 40.7399832], name: "Pier C Park" },
-  { coordinates: [-74.0279966, 40.7374069], name: "Pier A Park" },
-];
 
-// Add park markers
-locations.forEach(location => {
-  const el = document.createElement('div');
-  el.className = 'park-marker';
-  el.title = location.name;
-
-  new mapboxgl.Marker(el)
-      .setLngLat(location.coordinates)
-      .addTo(map);
+document.getElementById("FindParks").addEventListener("click", async () => {
+  const center = map.getCenter();
+  let locations = await getParks(center);
+  locations.forEach((location) => {
+    console.log(location);
+  });
 });
