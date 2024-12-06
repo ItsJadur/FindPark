@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "FindPark",
   "license": "MIT",
@@ -20,8 +20,5 @@
     "mapbox-gl": "^3.8.0",
     "mongodb": "^6.11.0",
     "prettier": "^3.4.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.7"
   }
 }
