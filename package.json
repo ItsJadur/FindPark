@@ -6,14 +6,22 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "FindPark",
   "license": "MIT",
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.0.3",
+    "@mapbox/search-js-core": "^1.0.0-beta.24",
+    "@mapbox/search-js-web": "^1.0.0-beta.24",
+    "axios": "^1.7.8",
     "express": "^4.21.1",
     "express-handlebars": "^8.0.1",
     "mapbox-gl": "^3.8.0",
-    "mongodb": "^6.11.0"
+    "mongodb": "^6.11.0",
+    "prettier": "^3.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
