@@ -5,8 +5,23 @@
 </p>
 <a href="/reports" class="btn btn-primary">Go to Reports</a>
 <a href="/nat" class="btn btn-primary">Go to National Parks</a>
-<div id='map' style='width: 500px; height: 500px;'></div>
-<button id="FindParks" type="submit">Find Parks</button>
+<div id="findParkMain">
+    <div>
+        <button id="FindParks" type="submit">Find Parks</button>
+        <div id='map' style='width: 500px; height: 500px;'></div>
+
+    </div>
+    <div>
+        <div id="locations" style="margin-left: 100px; height: 50vh;">
+            <h3>Park Locations</h3>
+            <ul id="locations-list" style=" height: 50vh; overflow-y: scroll;"></ul>
+        </div>
+    </div>
+
+
+
+</div>
+
 
 <script src="https://api.mapbox.com/search-js/v1.0.0-beta.24/web.js"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js'></script>
