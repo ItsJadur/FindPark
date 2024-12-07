@@ -32,15 +32,47 @@ export const createReport = async (parkName, reportContent) => {
 	return await reportCollection.findOne({ _id: insertInfo.insertedId });
 };
 
-export const getAllReports = async () => {
-	const reportCollection = await reports();
-	let reportList = await reportCollection.find({}).toArray();
-	if (!reportList) throw "Could not get all reports";
-	reportList = reportList.map((element) => {
-		element._id = element._id.toString();
-		return element;
-	});
-	return reportList;
+export const getAllReports = async ({ searchPark, sortBy, filterByDate }) => {
+    const reportCollection = await reports();
+    let query = {};
+    if (searchPark) {
+        query.parkName = { $regex: searchPark, $options: 'i' };
+    }
+    if (filterByDate) {
+        const date = new Date(filterByDate);
+        // Set time to midnight to include the entire day
+        date.setHours(0, 0, 0, 0);
+        const nextDay = new Date(date);
+        nextDay.setDate(nextDay.getDate() + 1);
+        query.date = {
+            $gte: date,
+            $lt: nextDay
+        };
+    }
+    let sort = {};
+    switch (sortBy) {
+        case 'date_asc':
+            sort.date = 1;
+            break;
+        case 'date_desc':
+            sort.date = -1;
+            break;
+        case 'parkName_asc':
+            sort.parkName = 1;
+            break;
+        case 'parkName_desc':
+            sort.parkName = -1;
+            break;
+        default:
+            sort.date = -1;
+    }
+    let reportList = await reportCollection.find(query).sort(sort).toArray();
+    if (!reportList) throw "Could not get all reports";
+    reportList = reportList.map((element) => {
+        element._id = element._id.toString();
+        return element;
+    });
+    return reportList;
 };
 
 export const getReport = async (reportId) => {
